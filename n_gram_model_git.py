@@ -124,7 +124,3 @@ class n_gram_modal():
                 break
           print(''.join(output))
           
-NN = n_gram_modal(2)
-NN.train()
-
-NN.sample()
