@@ -3,7 +3,7 @@ n_gram model implementation with numpy only
 
 How to use?:
 
-N = n_gram_model()
+N = n_gram_model()\n
 N.train()
 N.sample()
 
