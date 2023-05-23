@@ -1,16 +1,6 @@
 import numpy as np
 import time
-import os
-
-np.random.seed(1)
-def data_export(**kwargs):
-    for name, data in kwargs.items():
-        dirpath = 'data'
-        if not os.path.exists(dirpath):
-            os.makedirs(dirpath)
-            print(f"The new directory named {dirpath} is created!")
-        np.save(dirpath + '/' + name, data)
-        
+   
 class n_gram_modal():
     def __init__(self, n_gram: int):
         """n_gram >= 2"""
@@ -26,9 +16,6 @@ class n_gram_modal():
         self.itos = {i:s for s,i in self.stoi.items()}
 
         self.W = np.random.randn(27, 27)
-    
-    def load_data(self, w_path: str = 'data/WEIGHTS.npy'):
-        self.W = np.load(w_path, allow_pickle=True) 
     
     def data_constructor(self):
         init = [0] * (self.n_gram - 1)
@@ -74,14 +61,12 @@ class n_gram_modal():
 
 
     def train(self):
-        # self.load_data()
         xs, ys = self.data_constructor()
         xenc = np.array(self.one_hot(xs, 27))
         prev_loss = 0
         train_data = [xenc, ys]
         X = xenc
         Y = ys
-        LOSS = []
         
         start = time.perf_counter()
         for i in range(100):
@@ -90,7 +75,7 @@ class n_gram_modal():
             logits = X @ self.W 
             prob = np.exp(logits) / np.exp(logits).sum(axis = 1, keepdims = True)
             loss = np.mean(-np.log(prob[np.arange(len(X)), Y]))
-            LOSS.append(loss)
+
             #backward pass
             dprob = np.zeros(prob.shape)
             dprob[np.arange(len(X)), Y] = -1/(len(prob)*prob[np.arange(len(X)), Y])  
@@ -116,8 +101,6 @@ class n_gram_modal():
         
         print(f'Run time: {time.perf_counter() - start} s')
 
-        
-        # data_export(X = X, Y = self.one_hot(Y), WEIGHTS = self.W, LOSS = LOSS)
     def sample(self):
         for i in range(10):
 
