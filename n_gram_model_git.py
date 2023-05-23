@@ -1,7 +1,7 @@
 import numpy as np
 import time
    
-class n_gram_modal():
+class n_gram_model():
     def __init__(self, n_gram: int):
         """n_gram >= 2"""
         if not n_gram >=2:
