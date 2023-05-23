@@ -1,9 +1,9 @@
 # n_gram-model
 n_gram model implementation with numpy only
 
-How to use?:
+How to use?
 
-N = n_gram_model()\n
+N = n_gram_model()
 N.train()
 N.sample()
 
